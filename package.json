@@ -1,7 +1,8 @@
 {
   "name": "poker-face",
   "version": "0.0.1",
-  "description": "Buil mock API for the browser",
+  "description": "Easily build API mocks for the browser",
+  "keywords": ["mock", "api", "pretender"],
   "main": "out/index.js",
   "repository": "git@github.com:shb/poker-face.git",
   "author": "Simone Cociancich <simone.cociancich@gmail.com>",
