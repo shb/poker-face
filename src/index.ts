@@ -1,8 +1,5 @@
-import Pretender from 'pretender';
+import { PretenderEngine } from "./engines/pretender";
 
-import { PretenderBuilder } from "./builder";
-
-export default function pretend(): PretenderBuilder {
-  const pretender = new Pretender();
-  return new PretenderBuilder(pretender);
+export default function pokerface(): PretenderEngine {
+  return new PretenderEngine();
 }

@@ -1,8 +1,8 @@
-import pretend from ".";
+import pokerface from "..";
 
 describe("basic HTTP methods", () => {
   const testBaseMethod = (method: string) => async () => {
-    const server = pretend();
+    const server = pokerface();
     (server as any)[method]("/foo", () => [200, {}, '{"test":true}']);
 
     const res = await fetch("/foo", { method });
@@ -20,7 +20,7 @@ describe("basic HTTP methods", () => {
   test("PUT request", testBaseMethod("put"));
 
   test("shutdown", async () => {
-    const pretender = pretend();
+    const pretender = pokerface();
     pretender.shutdown();
     expect(() => fetch("/foo")).rejects.toBeDefined();
   });

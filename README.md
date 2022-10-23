@@ -1,45 +1,47 @@
 Poker Face
 ==========
-**A handy test server builder based on PretendJs**
+**A handy test server builder based on Pretender**
 
 
 Introduction
 ------------
 
-Poker Face is a rather thin wrapper around PretendJs. It gives you
-a lean api to map routes to route handlers inside a PretendJs
-instance. It also let you stub route handlers thanks to an _ExpressJs_-inspired API without the need for you to write the actual function body for the handler.
+Poker Face is a rather thin wrapper around Pretender. It gives you
+a lean api to map routes to route handlers inside a Pretender
+instance. It also let you stub route handlers' behavior thanks to
+an _ExpressJs_-inspired API without the need for you to write the
+actual function body for the handler.
 
 Poker Face is particularly useful when mocking API endpoints inside
-your tests because it takes care of the usual boileplate making you
-able to define the mocks almost on the fly.
+your tests because it takes care of the usual boileplate letting you
+define the mocks almost on the fly.
 
 Quick-start
 -----------
 Here we'll give you a quick introduction. You're welcome to peek
-inside the spec files to see poker-face in action.
+inside the spec files to see pokerface in action.
 
 First things first, install Poker Face with your package manager
 of choice. E.g.:
 
 ```sh
-npm install poker-face
+npm install --save-dev pokerface
 # or
-yarn add poker-face
+yarn add -D pokerface
 ```
 
 Now you can import pokerface into your code and fire it up:
 
 ```ts
-import poker from 'poker-face'
+import pokerface from 'poker-face'
 
-const bluff = poker()
+const server = pokerface()
 ```
 
 Let's try adding a GET endpoint with a JSON response:
 
 ```ts
-bluff.get("/foo", () => {
+server.get("/foo", () => {
   // maybe do something, then...
   // (I quite never know how to format these beasts... u_u)
   return [ 200, {
@@ -56,7 +58,7 @@ some test by forcing it to give a fixed answer. The you can
 rewrite the above this way:
 
 ```ts
-bluff.get("/foo")
+server.get("/foo")
   .json({
     foo: "bar"
   })
@@ -80,7 +82,7 @@ Say we wanted to send back a JSON payload, but for an error
 response, easy enough:
 
 ```ts
-bluff.get("/danger")
+server.get("/danger")
   .status(500)
   .json({
     message: "KA-BOOM!!!"
@@ -90,7 +92,7 @@ bluff.get("/danger")
 Make it an HTML error response? Sure:
 
 ```ts
-bluff.get("/done?by=yesterday")
+server.get("/done?by=yesterday")
   .status(400)
   .send("<strong>No way</strong>")
 ```
@@ -99,7 +101,7 @@ bluff.get("/done?by=yesterday")
 plain text response we should set it explicitly:
 
 ```ts
-bluff.get("/coffee")
+server.get("/coffee")
   .status(418)
   .set("Content-Type", "text/plain")
   .send("I'm a teapot")
@@ -108,7 +110,7 @@ bluff.get("/coffee")
 With this syntax multiple handlers can still be defined in chain:
 
 ```ts
-bluff
+server
   .post("/foo")
     .set("Location", "/foo/1")
     .sendStatus(201)
@@ -129,15 +131,16 @@ Future plans
 The project is in its infancy, principles and considerations about
 further development are:
 
-- Always strive to follow or outright mimick some existing staple
+- [ ] Always strive to follow or outright mimick some existing staple
   API. Stick to PretendJs for the server configuration, go along
-  the lines of ExpressJS for route definitions. Use the same defaults they would use; only invent when there's no _prior art_.
-- Try to include the whole PretendJs API in the base builder or
+  the lines of ExpressJS for route definitions. Use the same defaults they
+  would use; only invent when there's no _prior art_.
+- [ ] Try to include the whole PretendJs API in the base builder or
   at least give an escape hatch to hack through to the wrapped
   PretendJs instance.
-- Make the builder stateful, i.e.: a route definition is always
+- [x] Make the builder stateful, i.e.: a route definition is always
   and only opened by a shorthand route mapping method; it's closed
-  by a body-defining method. No other configuration can be done
+  by a body-defining method. No other kinds of configuration can be done
   inside a route definition.
-- Maybe pass an _ExpressJs_-compatible response object to the
+- [ ] Maybe pass an _ExpressJs_-compatible response object to the
   handler functions.
